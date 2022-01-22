@@ -1,4 +1,4 @@
-import store from '../../redux/state'
+import store from '../../redux/store'
 import MyPosts from './MyPosts/MyPosts'
 import s from './Profile.module.css'
 import ProfileInfo from './ProfileInfo/ProfileInfo'
