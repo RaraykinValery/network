@@ -6,7 +6,6 @@ import ReactDom from "react-dom";
 import App from "./App";
 import { Provider } from "react-redux";
 
-let rerenderEntireTree = (state) => {
     ReactDom.render(
         <React.StrictMode>
             <Provider store={store}>
@@ -15,14 +14,6 @@ let rerenderEntireTree = (state) => {
         </React.StrictMode>,
         document.getElementById("root")
     );
-};
-
-rerenderEntireTree(store.getState());
-
-store.subscribe(() => {
-    let state = store.getState();
-    rerenderEntireTree(state);
-});
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))
