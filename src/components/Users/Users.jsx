@@ -1,19 +1,21 @@
-import axios from "axios";
 import s from "./Users.module.css";
 import userPhoto from '../../assets/images/user.jpg';
 
 const Users = (props) => {
-    let getUsers = () => {
-        if (props.users.length === 0) {
-            axios.get(`https://social-network.samuraijs.com/api/1.0/users&page=${this.props.currentPage}&count=${this.props.pageSize}`)
-                .then(response => {
-                props.setUsers(response.data.items)
-            })
-        }
+    let pagesCount = Math.ceil(props.totalUsersCount / props.pageSize);
+
+    let pages = [];
+    for (let i = 1; i <= pagesCount; i++) {
+        pages.push(i);
     }
 
     return (
         <div>
+            <div>
+                {pages.map(p => {
+                    return <span onClick={() => { props.onPageChanged(p) }} className={props.currentPage === p && s.selectedPage}>{p}</span>
+                })}
+            </div>
             {props.users.map((u) => {
                 return (
                     <div key={u.id}>
