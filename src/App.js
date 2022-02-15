@@ -1,7 +1,8 @@
-import { BrowserRouter, Route} from "react-router-dom";
+import { BrowserRouter, Route } from "react-router-dom";
 import "./App.css";
-import { DialogsContainer } from "./components/Dialogs/DialogsContainer";
+import DialogsContainer from "./components/Dialogs/DialogsContainer";
 import HeaderContainer from "./components/Header/HeaderContainer";
+import Login from "./components/Login/Login";
 import Navbar from "./components/Navbar/Navbar";
 import ProfileContainer from "./components/Profile/ProfileContainer";
 import UsersContainer from "./components/Users/UsersContainer";
@@ -19,6 +20,7 @@ const App = (props) => {
                         component={() => <DialogsContainer />}
                     />
                     <Route path='/users' component={() => <UsersContainer />} />
+                    <Route path='/login' component={() => <Login />} />
                 </div>
             </div>
         </BrowserRouter>
