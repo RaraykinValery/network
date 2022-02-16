@@ -1,5 +1,6 @@
 import Preloader from '../../common/Preloader/Preloader'
 import s from './ProfileInfo.module.css'
+import ProfileStatus from './ProfileStatus'
 
 const ProfileInfo = (props) => {
     if (!props.profile) {
@@ -13,6 +14,7 @@ const ProfileInfo = (props) => {
             </div>
             <div className={s.descriptionBlock}>
                 <img src={props.profile.photos.large} alt='wallpaper' />
+                <ProfileStatus status={'hello'}/>
                 <div>About me: {props.profile.aboutMe ? props.profile.aboutMe : 'Nothing is claimed'}</div>
                 <div>ava + descr</div>
             </div>
