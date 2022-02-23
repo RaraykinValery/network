@@ -3,17 +3,16 @@ import { Redirect } from 'react-router-dom/cjs/react-router-dom.min'
 import { DialogItem } from './DialogItem/DialogItem'
 import s from './Dialogs.module.css'
 import { Message } from './Message/Message'
+import { Form, Field } from 'react-final-form'
+import { Textarea } from '../common/FormsControls/FormsControls'
+import { composeValidators, maxLengthCreator, required } from '../../utils/validators/validators'
 
 export const Dialogs = (props) => {
     let dialogsElements = props.dialogs.map(d => <DialogItem name={d.name} key={d.id} id={d.id} />)
     let messagesElements = props.messages.map(m => <Message message={m.message} key={m.id} id={m.id} />)
 
-    let onSendMessage = () => {
-        props.sendMessage();
-    }
-    let onNewMessageChange = (e) => {
-        let text = e.target.value;
-        props.newMessageChange(text);
+    let addNewMessage = (values) => {
+        props.sendMessage(values.newMessageText);
     }
 
     if (!props.isAuth) return <Redirect to={'/login'} />
@@ -25,9 +24,32 @@ export const Dialogs = (props) => {
             </div>
             <div className={s.messages}>
                 <div>{messagesElements}</div>
-                <div><textarea onChange={onNewMessageChange} value={props.newMessageText}></textarea></div>
-                <div><button onClick={onSendMessage}>Send</button></div>
+                <AddMessageForm onSubmit={addNewMessage} />
             </div>
         </div>
+    )
+}
+
+const AddMessageForm = (props) => {
+
+    return (
+        <Form
+            onSubmit={props.onSubmit}
+            render={({ handleSubmit }) => (
+                <form onSubmit={handleSubmit}>
+                    <div>
+                        <Field
+                            component={Textarea}
+                            name='newMessageText'
+                            placeholder='Enter message'
+                            validate={composeValidators(required, maxLengthCreator(50))}
+                        />
+                    </div>
+                    <div>
+                        <button>Send</button>
+                    </div>
+                </form>
+            )}
+        />
     )
 }
